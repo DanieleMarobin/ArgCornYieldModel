@@ -175,7 +175,6 @@ if True:
 if True:
     st.markdown('---')
     st.markdown('##### Actual vs Model')
-    st.write(train_df)
     fig = uc.chart_actual_vs_model(model=model, train_df=train_df, y_col='Yield')
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("---")
