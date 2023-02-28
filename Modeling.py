@@ -5,7 +5,7 @@ import statsmodels.api as sm
 from datetime import datetime as dt
 from datetime import timedelta
 from copy import deepcopy
-from tqdm import tqdm
+
 import concurrent.futures
 from itertools import combinations, combinations_with_replacement
 from calendar import isleap
@@ -119,7 +119,7 @@ def generate_weather_windows_df(input_w_df, date_start, date_end, ref_year = GV.
     
     start_list = pd.date_range(start = date_start, end = date_end, freq=freq_start)
 
-    for s in tqdm(start_list):
+    for s in start_list:
         seas_s = seas_day(date=s, ref_year_start=ref_year_start)
         end_list = pd.date_range(start=min(s, date_end), end=date_end, freq=freq_end)
 
