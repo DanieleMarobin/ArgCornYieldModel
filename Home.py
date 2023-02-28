@@ -183,7 +183,12 @@ if True:
 if True:
     st.markdown('---')
     st.markdown('##### Training DataSet')
+    pred_df[WD]=pred_df[WD].set_index('year',drop=False)
+    st.dataframe(pred_df[WD].sort_index(ascending=False), use_container_width=True)
     st.dataframe(train_df.sort_index(ascending=False), use_container_width=True)
+
+    st.dataframe(pd.concat([pred_df[WD], train_df]).sort_index(ascending=False), use_container_width=True)
+
     st.markdown("---")
 
 # Model Summary
