@@ -480,45 +480,6 @@ def extract_yearly_ww_variables(w_df, var_windows=[], ref_year = GV.CUR_YEAR, re
     if drop_na: out_df.dropna(inplace=True, how=drop_how) # how : {'any', 'all'}
     return  out_df
 
-def extract_yearly_ww_variables_old(w_df, var_windows=[], join='inner', drop_na=True, drop_how='any'):
-    w_df['date']=w_df.index
-    wws=[]
-    
-    for v_w in var_windows:    
-        # Get only needed variables
-        w_cols=['date']
-        w_cols.extend(v_w['variables'])
-        w_df_sub = w_df[w_cols]
-
-        w_df_sub['month'] = pd.to_datetime(w_df_sub['date']).dt.month
-        w_df_sub['day'] = pd.to_datetime(w_df_sub['date']).dt.day
-        w_df_sub['year'] = pd.to_datetime(w_df_sub['date']).dt.year
-        w_df_sub['time_id'] = 100*w_df_sub['month']+w_df_sub['day']
-
-        # Adding:
-        #    1) 'time_id': to select the weather window
-        #    2) 'year': to be able to group by year
-
-        w_cols.extend(['time_id','year'])
-        w_df_sub = w_df_sub[w_cols]
-        
-        for w in v_w['windows']:
-            s = w['start']; id_s = s.month * 100 + s.day
-            e = w['end']; id_e = e.month * 100 + e.day
-
-            ww = w_df_sub[(w_df_sub.time_id>=id_s) & (w_df_sub.time_id<=id_e)]                                
-            ww.drop(columns=['time_id'], inplace=True)
-            ww.columns = list(map(lambda x:'year'if x=='year'else x+'_'+s.strftime("%b%d")+'-'+e.strftime("%b%d"),list(ww.columns)))
-            ww = ww.groupby('year').mean()
-            ww.index=ww.index.astype(int)
-            wws.append(ww)                                  
-
-    out_df = pd.concat(wws, sort=True, axis=1, join=join)        
-    if drop_na: out_df.dropna(inplace=True, how=drop_how) # how : {'any', 'all'}
-    return  out_df
-
-
-
 def print_folds(folds, years, X_df=None):
     '''
     Example (for the usual X_df with years as index):
