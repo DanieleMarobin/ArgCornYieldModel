@@ -30,14 +30,14 @@ for key in st.session_state.keys():
 if True:    
     ref_year=2023
     file='Data/Models/ARG Corn Yield/GA_ARG_7'
-    id=516
+    id=157
 
     # this should cover the 'yield development' window (so we can see the full evolution)
-    ref_year_start=dt(ref_year-1,3,1)
+    ref_year_start=dt(ref_year-1,4,1)
 
     # this should cover the 'yield development' window (so we can see the full evolution)
-    season_start=dt(2022,9,5)
-    season_end=  dt(2023,1,30)
+    season_start=dt(2022,8,15)
+    season_end=  dt(2023,3,15)
 
     sel_yields_calcs = ['trend', GV.WD_HIST, GV.WD_H_GFS, GV.WD_H_ECMWF, GV.WD_H_GFS_EN, GV.WD_H_ECMWF_EN]
 
@@ -175,20 +175,18 @@ if True:
 if True:
     st.markdown('---')
     st.markdown('##### Actual vs Model')
-    fig = uc.chart_actual_vs_model(model=model, train_df=train_df, y_col='Yield')
+    WD='hist'
+    pred_df[WD]=pred_df[WD].set_index('year',drop=False)
+    train_pred_df=pd.concat([pred_df[WD], train_df]).sort_index(ascending=False)
+    fig = uc.chart_actual_vs_model(model=model, df=train_pred_df, y_col='Yield', plot_last_actual=False)
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("---")
 
 # Training DataSet
 if True:
     st.markdown('---')
-    st.markdown('##### Training DataSet')
-    pred_df[WD]=pred_df[WD].set_index('year',drop=False)
-    st.dataframe(pred_df[WD].sort_index(ascending=False), use_container_width=True)
-    st.dataframe(train_df.sort_index(ascending=False), use_container_width=True)
-
-    st.dataframe(pd.concat([pred_df[WD], train_df]).sort_index(ascending=False), use_container_width=True)
-
+    st.markdown('##### Training DataSet')            
+    st.dataframe(train_pred_df, use_container_width=True)
     st.markdown("---")
 
 # Model Summary

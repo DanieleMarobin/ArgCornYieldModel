@@ -770,18 +770,32 @@ def waterfall(yield_contribution):
                 
     return fig
 
-def chart_actual_vs_model(model, train_df, y_col, x_col=None):
-    fig = make_subplots(rows=2, cols=1, shared_xaxes=True, row_heights=[1,0.4])
-    if x_col is None:
-        x=train_df.index
-    else:
-        x=train_df[x_col]
-
-    y_actu=train_df[y_col]
-    y_pred= model.predict(train_df[model.params.index])
-    y_diff=100*(y_pred-y_actu)/y_actu    
+def chart_actual_vs_model(model, df, y_col, x_col=None, plot_last_actual=False):
+    '''
+    plot_last_actual=False
+        - sometimes the last row is the the prediction (so it is better not to show it as 'actual')
+    '''
     
-    fig.add_trace(go.Scatter(x=x, y=y_actu,mode='lines+markers', line=dict(width=1,color='black'), marker=dict(size=5), name='Actual'), row=1, col=1)
+    fig = make_subplots(rows=2, cols=1, shared_xaxes=True, row_heights=[1,0.4])
+
+    if x_col is None:
+        x=df.index
+    else:
+        x=df[x_col]
+
+    y_actu=df[y_col]
+    y_pred= model.predict(df[model.params.index])
+    y_diff=100*(y_pred-y_actu)/y_actu    
+
+    if plot_last_actual:
+        x_actu=x[:]
+    else:
+        mask= y_actu.index <(y_actu.index.max())
+        x_actu=x[mask]
+        y_actu=y_actu[mask]    
+        
+    fig.add_trace(go.Scatter(x=x_actu, y=y_actu,mode='lines+markers', line=dict(width=1,color='black'), marker=dict(size=5), name='Actual'), row=1, col=1)
+
     fig.add_trace(go.Scatter(x=x, y=y_pred,mode='lines+markers', line=dict(width=1,color='blue'), marker=dict(size=5), name='Model'), row=1, col=1)
     fig.add_trace(go.Bar(x=x, y=y_diff, name='Error (%)'), row=2, col=1)
 
