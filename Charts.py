@@ -613,7 +613,7 @@ def scatter_matrix_chart(df, marker_color='blue', add_trendline=True, add_title=
                 fig.update_yaxes(row=rr, col=cc, tickangle=y_tickangle,automargin=True,tickvals=[tick_pos],ticktext=[yc],showgrid=False,zeroline=False)
 
             if ((add_trendline) | (add_title)):
-                model = sm.OLS(y.values, sm.add_constant(x.values), missing="drop").fit()
+                model = sm.OLS(y.values, sm.add_constant(x.values, has_constant='add'), missing="drop").fit()
                 r_sq_str="Rsq "+str(round(100*model.rsquared,1))
                 hovertemplate="<br>".join([r_sq_str, "<extra></extra>"])
 
@@ -690,7 +690,7 @@ def sorted_scatter_chart(df, y_col, N_col_subplots=5, marker_color='blue', add_t
             fig.update_yaxes(row=rr, col=cc, tickangle=y_tickangle,automargin=True,tickvals=[tick_pos],ticktext=[y_col],showgrid=False,zeroline=False)
 
             if ((add_trendline) | (add_title)):
-                model = sm.OLS(y.values, sm.add_constant(x.values), missing="drop").fit()
+                model = sm.OLS(y.values, sm.add_constant(x.values, has_constant='add'), missing="drop").fit()
                 r_sq_str="Rsq "+str(round(100*model.rsquared,1))
                 hovertemplate="<br>".join([r_sq_str, "<extra></extra>"])
 
