@@ -666,10 +666,11 @@ if True:
         fo=get_BRA_conab_data(states=states, product=product, crop=crop, years=years, conab_df=conab_df)
 
         fo = pd.pivot_table(fo,values='Production',index='State',columns='year')
+        fo.index=['BRA-'+s for s in fo.index]
 
         fo=fo/fo.sum()
 
-        return fo.T    
+        return fo.T
 
     def get_CONAB_df():
         url = 'https://portaldeinformacoes.conab.gov.br/downloads/arquivos/SerieHistoricaGraos.txt'
