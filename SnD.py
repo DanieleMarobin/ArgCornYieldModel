@@ -795,6 +795,7 @@ if True:
         fo=get_MINAGRI_df(commodity=commodity)
 
         fo = pd.pivot_table(fo,values='Production',index='State',columns='CropYear')
+        fo.index=['ARG-'+s for s in fo.index]
 
         fo=fo/fo.sum()
         fo=fo.T

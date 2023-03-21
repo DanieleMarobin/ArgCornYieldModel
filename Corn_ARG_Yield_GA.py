@@ -97,7 +97,8 @@ def Get_Data_Single(scope: dict, var: str = 'yield', fo = {}):
         # 1) weights coming from MinAgri (full state name)
         # 2) weather coming from geosys and bloomberg (the only way to match both was with 1 letter)
         # 3) so the only way to get the usual weighted weather is to change the weight matrix columns        
-        rename_cols=dict(zip(scope['geo_df']['state_name'].str.upper() ,scope['geo_df']['state_alpha']))
+        # rename_cols=dict(zip(scope['geo_df']['state_name'].str.upper() ,scope['geo_df']['state_alpha']))
+        rename_cols=dict(zip('ARG-'+ scope['geo_df']['state_name'].str.upper() ,'ARG-'+scope['geo_df']['state_alpha']))
         fo['weights']=fo['weights'].rename(columns=rename_cols)
         return uw.weighted_w_df_all(fo['w_df_all'], fo['weights'], output_column='ARG', ref_year=ref_year, ref_year_start=ref_year_start)
 
