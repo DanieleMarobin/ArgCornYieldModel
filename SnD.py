@@ -659,7 +659,7 @@ if True:
 
         return fo.T
 
-    def get_BRA_prod_weights(states=['MT','PR','GO'], product='MILHO', crop='1ª SAFRA', years=list(range(1800,2050)), conab_df=None):
+    def get_BRA_prod_weights(states=[], product='MILHO', crop='1ª SAFRA', years=list(range(1800,2050)), conab_df=None):
         # rows:       years
         # columns:    region
 
