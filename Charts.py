@@ -209,7 +209,7 @@ def visualize_model_ww(model, ref_year_start, train_df=None, fuse_windows=True):
         if fuse_windows:
             var_coeff=pd.concat(series_list,axis=1).sum(axis=1)
             var_coeff=var_coeff.resample('1D').asfreq()
-            fig.add_trace(go.Scatter(x=var_coeff.index , y=var_coeff.values, name=v,mode='lines', line=dict(width=2,color=color, dash=None), marker=dict(size=8), showlegend=True, hovertemplate=hovertemplate))
+            fig.add_trace(go.Scatter(x=var_coeff.index , y=var_coeff.values, name=v, mode='lines', line=dict(width=2,color=color, dash=None), marker=dict(size=8), showlegend=True, hovertemplate=hovertemplate))
         else:
             for sl in series_list:
                 if v in legend:
