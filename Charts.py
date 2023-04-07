@@ -248,7 +248,6 @@ def add_ww_on_chart(chart, ww):
         e=w['windows'][0]['end']
         v=w['variables'][0] 
         
-
         if ('Temp' in v) or ('Sdd' in v):
             color='red'
         else:

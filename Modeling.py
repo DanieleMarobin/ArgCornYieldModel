@@ -196,32 +196,6 @@ def trend_yield(df_yield, start_year=None, n_years_min=20, rolling=False):
     return df
 
 
-def var_windows_from_cols_old(cols=[]):
-    """
-    Typical Use:
-        ww = um.var_windows_from_cols(m.params.index)
-    
-    Future development:
-        - Use the other function 'def windows_from_cols(cols=[]):' to calculate the windows in this one
-        - Note: 'def windows_from_cols(cols=[]):' just calculates the windows 
-    """
-    # Make sure that this sub is related to the function "def windows_from_cols(cols,year=2020):"
-    var_windows=[]
-    year = GV.LLY
-
-    for c in (x for x  in cols if '-' in x):
-        split=re.split('_|-',c)
-        var = split[0]+'_'+split[1]
-        
-        if len(split)>1:
-            start = dt.strptime(split[2]+str(year),'%b%d%Y')
-            end = dt.strptime(split[3]+str(year),'%b%d%Y')
-        
-        var_windows.append({'variables':[var], 'windows':[{'start': start,'end':end}]})
-    
-    # I return 'np.array' to be able to use masks with it
-    return np.array(var_windows)
-
 def var_windows_from_cols(cols=[], ref_year_start= dt(GV.CUR_YEAR,1,1)):
     """
     Typical Use:
