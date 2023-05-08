@@ -20,7 +20,6 @@ def get_w_sel_df():
 def open_w_sel_file():
     program =r'"C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE"'
     file = r'"\\ac-geneva-24\E\grains trading\Streamlit\Monitor\Data\Weather\weather_selection.csv"'
-    # os.system("start " + program + " "+ GV.W_SEL_FILE_LOCAL)
     os.system("start " + program + " "+file)
 
 def build_w_df_all(df_w_sel, w_vars=[GV.WV_PREC,GV.WV_TEMP_MAX], in_files=GV.WS_AMUIDS, out_cols=GV.WS_UNIT_NAME, sel_hist_fore=[GV.WD_HIST, GV.WD_GFS, GV.WD_ECMWF, GV.WD_GFS_EN, GV.WD_ECMWF_EN]):

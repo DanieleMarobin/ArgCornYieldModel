@@ -34,9 +34,8 @@ QS_DB_FILE = QS_DIR + 'qs_db.csv'
 W_DIR = 'Data/Weather/'
 W_DIR_LOCAL = LOCAL_DIR+W_DIR
 W_SEL_FILE = W_DIR + 'weather_selection.csv'
-W_SEL_FILE_LOCAL = LOCAL_DIR + W_SEL_FILE
+W_SEL_FILE = LOCAL_DIR + W_SEL_FILE
 W_LAST_UPDATE_FILE = W_DIR + 'last_update.csv'
-W_LAST_UPDATE_FILE_LOCAL = LOCAL_DIR + W_LAST_UPDATE_FILE
 
 
 # Weather Data types
